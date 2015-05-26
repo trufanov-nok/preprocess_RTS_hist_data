@@ -13,7 +13,7 @@ python="" #used only in cygwin
 if [ -d "/cygdrive" ]; then
   #running under cygwin
   echo "cygwin"
-  python=($(/usr/bin/find /cygdrive/ -iname python.exe 2> /dev/null | grep -i -m 1 -e '.*LibreOffice.*\/program\/python.exe$'))
+  python=($(/usr/bin/find /cygdrive/ -iname python.exe 2> /dev/null | grep -i -m 1 -e '.*LibreOffice.*\/program\/python.exe$ | sed -e "s# #\\\ #g" '))
 fi
 
 while getopts ":hvid:o:" OPTIONS; do
