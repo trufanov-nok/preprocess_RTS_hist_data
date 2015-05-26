@@ -8,6 +8,13 @@ output="./result"
 ignore_xls=0
 csv_header="code;contract;price;amount;dat_time;trade_id;Nosystem"
 required_number_of_commas=6
+python="" #used only in cygwin
+
+if [ -d "/cygdrive" ]; then
+  #running under cygwin
+  echo "cygwin"
+  python=($(/usr/bin/find /cygdrive/ -iname python.exe 2> /dev/null | grep -i -m 1 -e '.*LibreOffice.*\/program\/python.exe$'))
+fi
 
 while getopts ":hvid:o:" OPTIONS; do
     case ${OPTIONS} in
@@ -102,7 +109,7 @@ esac
     for k in "${xls[@]}"
     do
      echo "converting "$k" to csvsheets.. "
-     ../../unoconv -f csvsheets $k
+     $python ../../unoconv -f csvsheets $k
     
      fn=${k%.*}
 
