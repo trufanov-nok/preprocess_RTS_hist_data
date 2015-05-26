@@ -109,7 +109,7 @@ esac
     for k in "${xls[@]}"
     do
      echo "converting "$k" to csvsheets.. "
-     $python ../../unoconv -f csvsheets $k
+     eval $python ../../unoconv -f csvsheets $k
     
      fn=${k%.*}
 
