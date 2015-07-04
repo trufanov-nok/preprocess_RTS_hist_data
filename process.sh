@@ -44,7 +44,8 @@ function copy_csv()
      else
       commas=$((required_number_of_commas-commas))      
       new_commas=($(head -c $commas < /dev/zero | tr '\0' ';'))      
-      tail -n +2 $1 | sed "s#.*#&$(echo $new_commas)#" >> $2
+      tail -n +2 $1 | sed "s#.*#&$(echo $new_commas)#" | sed -e 's/\xC2\xA0//g' >> $2
+      #last sed to replace 0xC2A0 - non breakable space character that unoconv uses in case number in excel had space separated thousands ("1 420" -> "\x31C2A0343230).
     fi
 }
 
